@@ -1,35 +1,20 @@
-#include "main.h"
-
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
 /**
- * print_c - prints a char
- * @c: char to print
- *
- * Return: always 1
+ * _printf - prints arguments
+ * @format: identifiers
+ * @...: more arguments
+ * Return: an integer value
  */
-int print_c(va_list c)
+
+int _printf(const char *format, ...)
 {
-	char ch = (char)va_arg(c, int);
+	int written;
+	va_list args;
 
-	_putchar(ch);
-	return (1);
-}
-
-/**
- * print_s - prints a string
- * @s: printed string
- *
- * Return: number of chars printed
- */
-int print_s(va_list s)
-{
-	int count;
-	char *str = va_arg(s, char *);
-
-	if (str == NULL)
-		str = "(null)";
-	for (count = 0; str[count]; count++)
-	{
-		_putchar(str[count]);
-	}
-	return (count);
+	va_start(args, format);
+	written = vfprintf(stdout, format, args);
+	va_end(args);
+	return (written);
 }
